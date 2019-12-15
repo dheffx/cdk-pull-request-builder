@@ -1,70 +1,81 @@
 {
-  "author": "Daniel Heffner",
-  "name": "cdk-pr-builder",
-  "repository": {
-    "url": "http://somegit.com/cdk-pr-builder",
-    "type": "git"
-  },
-  "license": "MIT",
-  "version": "0.1.0",
-  "bin": {
-    "cdk-pr-builder": "bin/cdk-pr-builder.js"
-  },
-  "scripts": {
-    "build": "jsii",
-    "watch": "jsii -w",
-    "package": "jsii-pacmak",
-    "test": "jest",
-    "lint": "tslint -c tslint.yaml '{bin,lib,test}/**/*[^.d$].ts'",
-    "cdk": "cdk",
-    "fn:clean": "rm -rf lib/handlers",
-    "fn:lint": "tslint -c tslint.yaml 'functions/handlers/**/*'",
-    "fn:build": "npm run fn:clean && tsc -p functions"
-  },
-  "devDependencies": {
-    "@aws-cdk/assert": "^1.18.0",
-    "@types/jest": "^24.0.22",
-    "@types/node": "10.17.5",
-    "aws-cdk": "^1.18.0",
-    "aws-delivlib": "^4.5.1",
-    "jest": "^24.9.0",
-    "jsii-pacmak": "^0.20.11",
-    "jsii": "^0.20.11",
-    "source-map-support": "^0.5.16",
-    "ts-jest": "^24.1.0",
-    "ts-node": "^8.1.0",
-    "typescript": "~3.7.2"
-  },
-  "dependencies": {
-    "@aws-cdk/aws-codebuild": "^1.18.0",
-    "@aws-cdk/aws-codecommit": "^1.18.0",
-    "@aws-cdk/aws-events-targets": "^1.18.0",
-    "@aws-cdk/aws-iam": "^1.18.0",
-    "@aws-cdk/aws-lambda": "^1.18.0",
-    "@aws-cdk/core": "^1.18.0"
-  },
-  "peerDependencies": {
-    "@aws-cdk/aws-codebuild": "^1.18.0",
-    "@aws-cdk/aws-codecommit": "^1.18.0",
-    "@aws-cdk/core": "^1.18.0",
-    "@aws-cdk/aws-lambda": "^1.18.0",
-    "@aws-cdk/aws-events-targets": "^1.18.0",
-    "@aws-cdk/aws-iam": "^1.18.0"
-  },
-  "main": "bin/cdk-pr-builder.js",
-  "types": "lib/pull-request-builder.d.ts",
-  "stability": "stable",
-  "jsii": {
-    "outdir": "dist",
-    "versionFormat": "full",
-    "excludeTypescript": [
-        "functions/*"
-    ],
-    "targets": {
-      "python": {
-        "distName": "cdk-prbuilder",
-        "module": "cdk_prbuilder"
-      }
+    "author": "Daniel Heffner",
+    "name": "cdk-pr-builder",
+    "repository": {
+        "url": "http://somegit.com/cdk-pr-builder",
+        "type": "git"
+    },
+    "license": "MIT",
+    "version": "0.1.0",
+    "bin": {
+        "cdk-pr-builder": "bin/cdk-pr-builder.js"
+    },
+    "scripts": {
+        "build": "jsii",
+        "watch": "jsii -w",
+        "package": "jsii-pacmak",
+        "test": "jest",
+        "lint": "tslint -c tslint.yaml '{bin,lib,test}/**/*[^.d$].ts'",
+        "cdk": "cdk",
+        "fn:clean": "rm -rf lib/handlers",
+        "fn:lint": "tslint -c tslint.yaml 'functions/handlers/**/*'",
+        "fn:build": "npm run fn:clean && tsc -p functions"
+    },
+    "devDependencies": {
+        "@aws-cdk/assert": "^1.18.0",
+        "@types/jest": "^24.0.22",
+        "@types/node": "10.17.5",
+        "aws-cdk": "^1.18.0",
+        "aws-delivlib": "^4.5.1",
+        "jest": "^24.9.0",
+        "jsii-pacmak": "^0.20.11",
+        "jsii": "^0.20.11",
+        "source-map-support": "^0.5.16",
+        "ts-jest": "^24.1.0",
+        "ts-node": "^8.1.0",
+        "typescript": "~3.7.2"
+    },
+    "dependencies": {
+        "@aws-cdk/aws-codebuild": "^1.18.0",
+        "@aws-cdk/aws-codecommit": "^1.18.0",
+        "@aws-cdk/aws-events-targets": "^1.18.0",
+        "@aws-cdk/aws-iam": "^1.18.0",
+        "@aws-cdk/aws-lambda": "^1.18.0",
+        "@aws-cdk/core": "^1.18.0"
+    },
+    "peerDependencies": {
+        "@aws-cdk/aws-codebuild": "^1.18.0",
+        "@aws-cdk/aws-codecommit": "^1.18.0",
+        "@aws-cdk/core": "^1.18.0",
+        "@aws-cdk/aws-lambda": "^1.18.0",
+        "@aws-cdk/aws-events-targets": "^1.18.0",
+        "@aws-cdk/aws-iam": "^1.18.0"
+    },
+    "main": "bin/cdk-pr-builder.js",
+    "types": "lib/pull-request-builder.d.ts",
+    "stability": "stable",
+    "jsii": {
+        "outdir": "dist",
+        "versionFormat": "full",
+        "excludeTypescript": [
+            "functions/*"
+        ],
+        "targets": {
+            "dotnet": {
+                "namespace": "CdkPullRequestBuilder",
+                "packageId": "CdkPullRequestBuilder"
+            },
+            "python": {
+                "distName": "cdk-prbuilder",
+                "module": "cdk_prbuilder"
+            },
+            "java": {
+                "package": "CdkPullRequestBuilder",
+                "maven": {
+                    "groupId": "CdkPullRequestBuilder",
+                    "artifactId": "CdkPullRequestBuilder"
+                }
+            }
+        }
     }
-  }
 }

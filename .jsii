@@ -858,6 +858,17 @@
   },
   "schema": "jsii/0.10.0",
   "targets": {
+    "dotnet": {
+      "namespace": "CdkPullRequestBuilder",
+      "packageId": "CdkPullRequestBuilder"
+    },
+    "java": {
+      "maven": {
+        "artifactId": "CdkPullRequestBuilder",
+        "groupId": "CdkPullRequestBuilder"
+      },
+      "package": "CdkPullRequestBuilder"
+    },
     "js": {
       "npm": "cdk-pr-builder"
     },
@@ -985,5 +996,5 @@
     }
   },
   "version": "0.1.0",
-  "fingerprint": "KCMKFqAzLcXNwj0by/O25JM3IvzQj4Q1fDlZxXuVScM="
+  "fingerprint": "j2o0QEFohR9RY5KFr28m3XBX39zjR2fKOy/H8+BDfAA="
 }
