@@ -6,7 +6,7 @@ import codecommit = require("@aws-cdk/aws-codecommit");
 
 import { PullRequestBuilder } from "../lib/pull-request-builder";
 
-export class CdkPrBuilderStack extends cdk.Stack {
+export class CdkExampleStack extends cdk.Stack {
     private readonly projectName: string = "example-prb-impl";
 
     private appRepo: codecommit.Repository;

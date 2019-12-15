@@ -845,7 +845,7 @@
   "docs": {
     "stability": "stable"
   },
-  "homepage": "http://somegit.com/cdk-pr-builder",
+  "homepage": "https://github.com/dheffx/cdk-pull-request-builder.git",
   "jsiiVersion": "0.20.11 (build d4fd44f)",
   "license": "MIT",
   "name": "cdk-pr-builder",
@@ -854,7 +854,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "http://somegit.com/cdk-pr-builder"
+    "url": "https://github.com/dheffx/cdk-pull-request-builder.git"
   },
   "schema": "jsii/0.10.0",
   "targets": {
@@ -996,5 +996,5 @@
     }
   },
   "version": "0.1.0",
-  "fingerprint": "j2o0QEFohR9RY5KFr28m3XBX39zjR2fKOy/H8+BDfAA="
+  "fingerprint": "QV6uM7/MPDh9WyJbg4NoJtQZXnLDpEpekHoY1eSC4KU="
 }

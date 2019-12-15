@@ -2,14 +2,11 @@
     "author": "Daniel Heffner",
     "name": "cdk-pr-builder",
     "repository": {
-        "url": "http://somegit.com/cdk-pr-builder",
+        "url": "https://github.com/dheffx/cdk-pull-request-builder.git",
         "type": "git"
     },
     "license": "MIT",
     "version": "0.1.0",
-    "bin": {
-        "cdk-pr-builder": "bin/cdk-pr-builder.js"
-    },
     "scripts": {
         "build": "jsii",
         "watch": "jsii -w",
@@ -17,6 +14,7 @@
         "test": "jest",
         "lint": "tslint -c tslint.yaml '{bin,lib,test}/**/*[^.d$].ts'",
         "cdk": "cdk",
+        "impl:build": "tsc",
         "fn:clean": "rm -rf lib/handlers",
         "fn:lint": "tslint -c tslint.yaml 'functions/handlers/**/*'",
         "fn:build": "npm run fn:clean && tsc -p functions"
@@ -51,14 +49,15 @@
         "@aws-cdk/aws-events-targets": "^1.18.0",
         "@aws-cdk/aws-iam": "^1.18.0"
     },
-    "main": "bin/cdk-pr-builder.js",
+    "main": "lib/pull-request-builder.js",
     "types": "lib/pull-request-builder.d.ts",
     "stability": "stable",
     "jsii": {
         "outdir": "dist",
         "versionFormat": "full",
         "excludeTypescript": [
-            "functions/*"
+            "functions/*",
+            "impl/*"
         ],
         "targets": {
             "dotnet": {
