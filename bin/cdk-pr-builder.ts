@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-import 'source-map-support/register';
-import cdk = require('@aws-cdk/core');
-import { CdkPrBuilderStack } from '../lib/cdk-pr-builder-stack';
+import "source-map-support/register";
+import cdk = require("@aws-cdk/core");
+import { CdkPrBuilderStack } from "../impl/example-stack";
 
 const app = new cdk.App();
-new CdkPrBuilderStack(app, 'CdkPrBuilderStack');
+new CdkPrBuilderStack(app, "ExampleStack");
