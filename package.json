@@ -17,8 +17,9 @@
     "test": "jest",
     "lint": "tslint -c tslint.yaml --exclude 'lib/handlers/**/*' '{bin,lib,test}/**/*[^.d$].ts'",
     "cdk": "cdk",
+    "fn:clean": "rm -rf lib/handlers/dist",
     "fn:lint": "tslint -c tslint.yaml 'lib/handlers/src/**/*'",
-    "fn:build": "tsc -p lib/handlers"
+    "fn:build": "npm run fn:clean && tsc -p lib/handlers"
   },
   "devDependencies": {
     "@aws-cdk/assert": "^1.18.0",

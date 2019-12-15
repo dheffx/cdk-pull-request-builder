@@ -20,7 +20,7 @@ export class CdkPrBuilderStack extends cdk.Stack {
             repositoryName: this.projectName
         });
 
-        const buildSpecPath = path.join(__dirname, "../buildspecs/test_app.yml");
+        const buildSpecPath = path.join(__dirname, "buildspecs/test_app.yml");
 
         this.appTestBuildProject = new codebuild.Project(this, "TestBuildProject", {
             buildSpec: codebuild.BuildSpec.fromSourceFilename(buildSpecPath),

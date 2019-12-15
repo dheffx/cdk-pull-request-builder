@@ -18,6 +18,7 @@ export interface PullRequestBuilderProps {
 }
 
 export class PullRequestBuilder extends Construct {
+    private readonly handlersDir: string = 'handlers/dist';
     private serviceRole: Role;
 
     constructor(scope: Construct, id: string, props: PullRequestBuilderProps) {
@@ -82,7 +83,7 @@ export class PullRequestBuilder extends Construct {
 
     private startBuildOnPullRequestOpen(repo: Repository, projectName: string): void {
         const fn = new Function(this, 'StartBuildFunction', {
-            code: Code.fromAsset(path.join(__dirname, 'handlers/dist')),
+            code: Code.fromAsset(path.join(__dirname, this.handlersDir)),
             environment: {
                 CODEBUILD_PROJECT_NAME: projectName
             },
@@ -103,7 +104,7 @@ export class PullRequestBuilder extends Construct {
 
     private postCommentOnBuildStateChange(project: Project): void {
         const fn = new Function(this, 'PostCommentFunction', {
-            code: Code.fromAsset(path.join(__dirname, 'handlers/dist')),
+            code: Code.fromAsset(path.join(__dirname, this.handlersDir)),
             handler: 'post-comment.handler',
             role: this.serviceRole,
             runtime: Runtime.NODEJS_10_X,
@@ -116,7 +117,7 @@ export class PullRequestBuilder extends Construct {
 
     private approveOrRevokePullRequest(project: Project): void {
         const fn = new Function(this, 'EnforceApprovalFunction', {
-            code: Code.fromAsset(path.join(__dirname, 'handlers/dist')),
+            code: Code.fromAsset(path.join(__dirname, this.handlersDir)),
             handler: 'enforce-approval.handler',
             role: this.serviceRole,
             runtime: Runtime.NODEJS_10_X,
