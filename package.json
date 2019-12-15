@@ -11,15 +11,15 @@
     "cdk-pr-builder": "bin/cdk-pr-builder.js"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "jsii",
     "watch": "jsii -w",
     "package": "jsii-pacmak",
     "test": "jest",
-    "lint": "tslint -c tslint.yaml --exclude 'lib/handlers/**/*' '{bin,lib,test}/**/*[^.d$].ts'",
+    "lint": "tslint -c tslint.yaml '{bin,lib,test}/**/*[^.d$].ts'",
     "cdk": "cdk",
-    "fn:clean": "rm -rf lib/handlers/dist",
-    "fn:lint": "tslint -c tslint.yaml 'lib/handlers/src/**/*'",
-    "fn:build": "npm run fn:clean && tsc -p lib/handlers"
+    "fn:clean": "rm -rf lib/handlers",
+    "fn:lint": "tslint -c tslint.yaml 'functions/handlers/**/*'",
+    "fn:build": "npm run fn:clean && tsc -p functions"
   },
   "devDependencies": {
     "@aws-cdk/assert": "^1.18.0",
@@ -57,6 +57,9 @@
   "jsii": {
     "outdir": "dist",
     "versionFormat": "full",
+    "excludeTypescript": [
+        "functions/*"
+    ],
     "targets": {
       "python": {
         "distName": "cdk-prbuilder",

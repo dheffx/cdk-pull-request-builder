@@ -18,7 +18,7 @@ export interface PullRequestBuilderProps {
 }
 
 export class PullRequestBuilder extends Construct {
-    private readonly handlersDir: string = 'handlers/dist';
+    private readonly handlersDir: string = 'handlers';
     private serviceRole: Role;
 
     constructor(scope: Construct, id: string, props: PullRequestBuilderProps) {
@@ -122,7 +122,6 @@ export class PullRequestBuilder extends Construct {
             role: this.serviceRole,
             runtime: Runtime.NODEJS_10_X,
         });
-        const target = new LambdaFunction(fn);
         project.onBuildSucceeded('ApproveOnSuccess', {
              target: new LambdaFunction(fn)
         });
