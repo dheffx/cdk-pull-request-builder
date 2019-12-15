@@ -39,7 +39,8 @@ export class PullRequestBuilder extends Construct {
         const role = new Role(this, 'LambdaServiceRole', {
             assumedBy: new ServicePrincipal('lambda.amazonaws.com'),
             managedPolicies: [
-                ManagedPolicy.fromAwsManagedPolicyName('AWSLambdaBasicExecutionRole')
+                ManagedPolicy.fromAwsManagedPolicyName('service-role/AWSLambdaBasicExecutionRole'),
+                ManagedPolicy.fromAwsManagedPolicyName('AWSXrayWriteOnlyAccess')
             ],
             roleName: `${props.repo.repositoryName}-prb-service-role`
         });
@@ -89,7 +90,7 @@ export class PullRequestBuilder extends Construct {
             },
             handler: 'start-build.handler',
             role: this.serviceRole,
-            runtime: Runtime.NODEJS_10_X,
+            runtime: Runtime.NODEJS_12_X,
         });
 
         repo.onPullRequestStateChange('OnPullRequestCreate', {
@@ -107,7 +108,7 @@ export class PullRequestBuilder extends Construct {
             code: Code.fromAsset(path.join(__dirname, this.handlersDir)),
             handler: 'post-comment.handler',
             role: this.serviceRole,
-            runtime: Runtime.NODEJS_10_X,
+            runtime: Runtime.NODEJS_12_X,
         });
 
         project.onStateChange('OnBuildStateChange', {
@@ -120,7 +121,7 @@ export class PullRequestBuilder extends Construct {
             code: Code.fromAsset(path.join(__dirname, this.handlersDir)),
             handler: 'enforce-approval.handler',
             role: this.serviceRole,
-            runtime: Runtime.NODEJS_10_X,
+            runtime: Runtime.NODEJS_12_X,
         });
         project.onBuildSucceeded('ApproveOnSuccess', {
              target: new LambdaFunction(fn)

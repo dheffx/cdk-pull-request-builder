@@ -1,0 +1,14 @@
+{
+  "name": "cdk-pull-request-builder-pipeline",
+  "version": "0.1.0",
+  "description": "delivery pipeline for packages",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-delivlib": "^4.5.1"
+  }
+}

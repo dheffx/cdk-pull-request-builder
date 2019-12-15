@@ -850,7 +850,7 @@
   "license": "MIT",
   "name": "cdk-pr-builder",
   "readme": {
-    "markdown": "# Welcome to your CDK TypeScript project!\n\nThis is a blank project for TypeScript development with CDK.\n\nThe `cdk.json` file tells the CDK Toolkit how to execute your app.\n\n## Useful commands\n\n * `npm run build`   compile typescript to js\n * `npm run watch`   watch for changes and compile\n * `npm run test`    perform the jest unit tests\n * `cdk deploy`      deploy this stack to your default AWS account/region\n * `cdk diff`        compare deployed stack with current state\n * `cdk synth`       emits the synthesized CloudFormation template\n"
+    "markdown": "# Welcome to your CDK TypeScript project!\n\nThis is a blank project for TypeScript development with CDK.\n\nThe `cdk.json` file tells the CDK Toolkit how to execute your app.\n\n## Useful commands\n\n * `npm run build`   compile typescript to js\n * `npm run watch`   watch for changes and compile\n * `npm run test`    perform the jest unit tests\n * `cdk deploy`      deploy this stack to your default AWS account/region\n * `cdk diff`        compare deployed stack with current state\n * `cdk synth`       emits the synthesized CloudFormation template\n\n## How to build\n\nFor CDK Construct\n\n```shell\nnpm run fn:lint\nnpm run fn:build\nnpm run lint\nnpm run build\nnpm run package\n```\n\nFor Example Stack\n\n```shell\nnpm run fn:lint\nnpm run fn:build\nnpm run lint\nnpm run build\ncdk deploy\n```\n\n`fn:lint` and `fn:build` create the dist files for the three lambda handlers. these are assets used in the cdk build.\n\n## Reasoning for bundling AWS-SDK - short term\n\nNODE 12_X bundles 2.536.0 and approval templates were added in 2.576.0\nmaybe make layer later\n"
   },
   "repository": {
     "type": "git",
@@ -996,5 +996,5 @@
     }
   },
   "version": "0.1.0",
-  "fingerprint": "QV6uM7/MPDh9WyJbg4NoJtQZXnLDpEpekHoY1eSC4KU="
+  "fingerprint": "qVeQ0SSJuBxYKjwfw372Yyvz6Ch4TDk8w8u897U01pc="
 }

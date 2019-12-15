@@ -1,5 +1,3 @@
-import path = require("path");
-
 import cdk = require("@aws-cdk/core");
 import codebuild = require("@aws-cdk/aws-codebuild");
 import codecommit = require("@aws-cdk/aws-codecommit");
@@ -20,10 +18,7 @@ export class CdkExampleStack extends cdk.Stack {
             repositoryName: this.projectName
         });
 
-        const buildSpecPath = path.join(__dirname, "buildspecs/test_app.yml");
-
         this.appTestBuildProject = new codebuild.Project(this, "TestBuildProject", {
-            buildSpec: codebuild.BuildSpec.fromSourceFilename(buildSpecPath),
             source: codebuild.Source.codeCommit({ repository: this.appRepo })
         });
 

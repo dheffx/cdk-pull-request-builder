@@ -1,7 +1,8 @@
-interface EnvironmentVariable {
+export interface EnvironmentVariable {
     name: string,
     value: string
 }
+
 type StringMap = { [key: string]: string };
 
 export const getBuildEnvironment = (envVars: EnvironmentVariable[]): StringMap => {

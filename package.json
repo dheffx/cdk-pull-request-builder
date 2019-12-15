@@ -17,7 +17,10 @@
         "impl:build": "tsc",
         "fn:clean": "rm -rf lib/handlers",
         "fn:lint": "tslint -c tslint.yaml 'functions/handlers/**/*'",
-        "fn:build": "npm run fn:clean && tsc -p functions"
+        "fn:prod": "npm install --production --prefix functions",
+        "fn:includeSDK": "rm -rf functions/node_modules && npm run fn:prod && mv functions/node_modules lib/handlers/node_modules",
+        "fn:build": "npm run fn:clean && tsc -p functions",
+        "fn:build:prod": "npm run fn:build && npm run fn:includeSDK"
     },
     "devDependencies": {
         "@aws-cdk/assert": "^1.18.0",

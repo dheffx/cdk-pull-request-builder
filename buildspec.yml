@@ -1,0 +1,16 @@
+version: '0.2',
+  phases:
+    install:
+      commands:
+        - npm install
+        - npm install --prefix functions
+    build:
+      commands:
+        - npm run fn:lint
+        - npm run fn:build
+        - npm run lint
+        - npm run build
+        - npm run package
+artifacts:
+  files: [ '**/*' ],
+  base-directory: 'dist'
