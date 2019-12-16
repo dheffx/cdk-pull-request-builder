@@ -1,14 +1,28 @@
 {
   "name": "cdk-pull-request-builder-pipeline",
   "version": "0.1.0",
-  "description": "delivery pipeline for packages",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "bin": {
+    "pipeline": "bin/pipeline.js"
   },
-  "author": "",
-  "license": "ISC",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "jest",
+    "cdk": "cdk"
+  },
+  "devDependencies": {
+    "@aws-cdk/assert": "^1.18.0",
+    "@types/jest": "^24.0.22",
+    "@types/node": "10.17.5",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.1.0",
+    "aws-cdk": "^1.18.0",
+    "ts-node": "^8.1.0",
+    "typescript": "~3.7.2"
+  },
   "dependencies": {
-    "aws-delivlib": "^4.5.1"
+    "@aws-cdk/core": "^1.18.0",
+    "aws-delivlib": "https://github.com/awslabs/aws-delivlib/archive/v4.6.0.tar.gz",
+    "source-map-support": "^0.5.16"
   }
 }

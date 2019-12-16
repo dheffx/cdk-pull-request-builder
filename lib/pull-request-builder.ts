@@ -70,7 +70,10 @@ export class PullRequestBuilder extends Construct {
         ];
 
         if (props.enforceApproval) {
-            statements[2].actions.push('codecommit:UpdatePullRequestApprovalState');
+            statements[2].actions.push(
+                'codecommit:GetPullRequest',
+                'codecommit:UpdatePullRequestApprovalState'
+            );
         }
 
         statements.forEach((statement) => {

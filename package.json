@@ -12,7 +12,7 @@
         "watch": "jsii -w",
         "package": "jsii-pacmak",
         "test": "jest",
-        "lint": "tslint -c tslint.yaml '{bin,lib,test}/**/*[^.d$].ts'",
+        "lint": "tslint -c tslint.yaml -e 'lib/handlers/**/*' '{bin,lib,test}/**/*[^.d$].ts'",
         "cdk": "cdk",
         "impl:build": "tsc",
         "fn:clean": "rm -rf lib/handlers",
@@ -20,7 +20,11 @@
         "fn:prod": "npm install --production --prefix functions",
         "fn:includeSDK": "rm -rf functions/node_modules && npm run fn:prod && mv functions/node_modules lib/handlers/node_modules",
         "fn:build": "npm run fn:clean && tsc -p functions",
-        "fn:build:prod": "npm run fn:build && npm run fn:includeSDK"
+        "fn:build:prod": "npm run fn:build && npm run fn:includeSDK",
+        "cicd:build": "npm --prefix pipeline run build",
+        "cicd:deploy": "cdk -a pipeline deploy",
+        "cicd:lint": "tslint -c tslint.yaml 'pipeline/{bin,lib,test}/**/*[^.d$].ts'",
+        "all:lint": "npm run fn:lint && npm run lint && npm run cicd:lint"
     },
     "devDependencies": {
         "@aws-cdk/assert": "^1.18.0",
@@ -60,7 +64,8 @@
         "versionFormat": "full",
         "excludeTypescript": [
             "functions/*",
-            "impl/*"
+            "impl/*",
+            "pipeline/*"
         ],
         "targets": {
             "dotnet": {
