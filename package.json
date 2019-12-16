@@ -18,7 +18,7 @@
         "fn:clean": "rm -rf lib/handlers",
         "fn:lint": "tslint -c tslint.yaml 'functions/handlers/**/*'",
         "fn:prod": "npm install --production --prefix functions",
-        "fn:includeSDK": "rm -rf functions/node_modules && npm run fn:prod && mv functions/node_modules lib/layers/node_modules",
+        "fn:includeSDK": "rm -rf functions/node_modules && npm run fn:prod && mv functions/node_modules lib/layers/nodejs/node_modules",
         "fn:build": "npm run fn:clean && tsc -p functions",
         "fn:build:prod": "npm run fn:build && npm run fn:includeSDK",
         "cicd:build": "npm --prefix pipeline run build",
