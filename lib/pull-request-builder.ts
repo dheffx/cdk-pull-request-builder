@@ -8,7 +8,7 @@ import {
     Effect, ManagedPolicy,
     PolicyStatement, Role, ServicePrincipal
 } from "@aws-cdk/aws-iam";
-import { Code, Function, Runtime } from "@aws-cdk/aws-lambda";
+import { Code, Function, LayerVersion, Runtime } from "@aws-cdk/aws-lambda";
 
 export interface PullRequestBuilderProps {
     readonly enforceApproval: boolean;
@@ -19,6 +19,7 @@ export interface PullRequestBuilderProps {
 
 export class PullRequestBuilder extends Construct {
     private readonly handlersDir: string = 'handlers';
+    private readonly layersDir: string = 'layers';
     private serviceRole: Role;
 
     constructor(scope: Construct, id: string, props: PullRequestBuilderProps) {
@@ -30,7 +31,7 @@ export class PullRequestBuilder extends Construct {
         this.postCommentOnBuildStateChange(props.project);
 
         if (props.enforceApproval) {
-            this.approveOrRevokePullRequest(props.project);
+            this.enforceApprovalOnPullRequest(props.project);
         }
     }
 
@@ -121,11 +122,21 @@ export class PullRequestBuilder extends Construct {
         });
     }
 
-    private approveOrRevokePullRequest(project: Project): void {
+    private enforceApprovalOnPullRequest(project: Project): void {
+        const updatedAwsSdkLayer = new LayerVersion(this, 'UpdatedAwsSdkLayer', {
+            code: Code.fromAsset(path.join(__dirname, this.layersDir)),
+            compatibleRuntimes: [
+                Runtime.NODEJS_12_X
+            ],
+            description: "NodeJS 12_X layer that includes newer AWS SDK (for Approval Template support)",
+            layerVersionName: "nodejs12x-updated-sdk"
+        });
+
         const fn = new Function(this, 'EnforceApprovalFunction', {
             code: Code.fromAsset(path.join(__dirname, this.handlersDir)),
             functionName: 'PullRequestBuilder-EnforceApproval',
             handler: 'enforce-approval.handler',
+            layers: [ updatedAwsSdkLayer ],
             role: this.serviceRole,
             runtime: Runtime.NODEJS_12_X,
         });
