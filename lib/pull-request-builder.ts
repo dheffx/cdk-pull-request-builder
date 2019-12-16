@@ -91,6 +91,7 @@ export class PullRequestBuilder extends Construct {
             environment: {
                 CODEBUILD_PROJECT_NAME: projectName
             },
+            functionName: 'PullRequestBuilder-StartBuild',
             handler: 'start-build.handler',
             role: this.serviceRole,
             runtime: Runtime.NODEJS_12_X,
@@ -109,6 +110,7 @@ export class PullRequestBuilder extends Construct {
     private postCommentOnBuildStateChange(project: Project): void {
         const fn = new Function(this, 'PostCommentFunction', {
             code: Code.fromAsset(path.join(__dirname, this.handlersDir)),
+            functionName: 'PullRequestBuilder-PostComment',
             handler: 'post-comment.handler',
             role: this.serviceRole,
             runtime: Runtime.NODEJS_12_X,
@@ -122,6 +124,7 @@ export class PullRequestBuilder extends Construct {
     private approveOrRevokePullRequest(project: Project): void {
         const fn = new Function(this, 'EnforceApprovalFunction', {
             code: Code.fromAsset(path.join(__dirname, this.handlersDir)),
+            functionName: 'PullRequestBuilder-EnforceApproval',
             handler: 'enforce-approval.handler',
             role: this.serviceRole,
             runtime: Runtime.NODEJS_12_X,
