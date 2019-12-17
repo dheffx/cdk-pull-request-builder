@@ -22,10 +22,17 @@ export class CdkExampleStack extends cdk.Stack {
             source: codebuild.Source.codeCommit({ repository: this.appRepo })
         });
 
+        const sourceEmailParam = '/example-app/pull-request-builder/source-email';
+        const notificationEmailParam = '/example-app/pull-request-builder/notification-email';
+
         new PullRequestBuilder(this, "PullRequestBuilder", {
             enforceApproval: true,
             project: this.appTestBuildProject,
-            repo: this.appRepo
+            repo: this.appRepo,
+            buildFailureEmailSettings: {
+                sourceEmailParam,
+                notificationEmailParam
+            }
         });
     }
 }

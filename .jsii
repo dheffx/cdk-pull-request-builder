@@ -58,6 +58,32 @@
       },
       "version": "1.18.0"
     },
+    "@aws-cdk/aws-events": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK.AWS.Events",
+          "packageId": "Amazon.CDK.AWS.Events",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "events",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.services.events"
+        },
+        "js": {
+          "npm": "@aws-cdk/aws-events"
+        },
+        "python": {
+          "distName": "aws-cdk.aws-events",
+          "module": "aws_cdk.aws_events"
+        }
+      },
+      "version": "1.18.0"
+    },
     "@aws-cdk/aws-events-targets": {
       "targets": {
         "dotnet": {
@@ -878,11 +904,121 @@
     }
   },
   "types": {
+    "cdk-pr-builder.BuildFailureEmailProps": {
+      "assembly": "cdk-pr-builder",
+      "datatype": true,
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "cdk-pr-builder.BuildFailureEmailProps",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/pull-request-builder.ts",
+        "line": 15
+      },
+      "name": "BuildFailureEmailProps",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/pull-request-builder.ts",
+            "line": 16
+          },
+          "name": "sourceEmailParam",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/pull-request-builder.ts",
+            "line": 17
+          },
+          "name": "notificationEmailParam",
+          "optional": true,
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
+    "cdk-pr-builder.CommonFunctionProps": {
+      "assembly": "cdk-pr-builder",
+      "datatype": true,
+      "docs": {
+        "stability": "stable"
+      },
+      "fqn": "cdk-pr-builder.CommonFunctionProps",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/pull-request-builder.ts",
+        "line": 20
+      },
+      "name": "CommonFunctionProps",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/pull-request-builder.ts",
+            "line": 21
+          },
+          "name": "code",
+          "type": {
+            "fqn": "@aws-cdk/aws-lambda.Code"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/pull-request-builder.ts",
+            "line": 23
+          },
+          "name": "role",
+          "type": {
+            "fqn": "@aws-cdk/aws-iam.Role"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/pull-request-builder.ts",
+            "line": 22
+          },
+          "name": "runtime",
+          "type": {
+            "fqn": "@aws-cdk/aws-lambda.Runtime"
+          }
+        }
+      ]
+    },
     "cdk-pr-builder.PullRequestBuilder": {
       "assembly": "cdk-pr-builder",
       "base": "@aws-cdk/core.Construct",
       "docs": {
-        "stability": "stable"
+        "remarks": "Implements an event-driven workflow using\nCodeBuild, CodeCommit, CloudWatchEvents,\nCloudWatchLogs, and Lambda to achieve a basic\nautomated test cycle for pull requests.\n\nCodeBuild is started when a pull request is opened\nor updated. The PR is updated with comments as\nthe build changes its state.\n\nOptionally, the job can enforce an approval rule on\nthe PR by configuring PullRequestBuilderProps.enforceApproval",
+        "stability": "stable",
+        "summary": "CDK PullRequestBuilder."
       },
       "fqn": "cdk-pr-builder.PullRequestBuilder",
       "initializer": {
@@ -913,7 +1049,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/pull-request-builder.ts",
-        "line": 20
+        "line": 49
       },
       "name": "PullRequestBuilder"
     },
@@ -927,7 +1063,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/pull-request-builder.ts",
-        "line": 13
+        "line": 26
       },
       "name": "PullRequestBuilderProps",
       "properties": [
@@ -939,7 +1075,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/pull-request-builder.ts",
-            "line": 14
+            "line": 27
           },
           "name": "enforceApproval",
           "type": {
@@ -954,7 +1090,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/pull-request-builder.ts",
-            "line": 16
+            "line": 30
           },
           "name": "project",
           "type": {
@@ -969,7 +1105,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/pull-request-builder.ts",
-            "line": 17
+            "line": 31
           },
           "name": "repo",
           "type": {
@@ -984,7 +1120,23 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/pull-request-builder.ts",
-            "line": 15
+            "line": 28
+          },
+          "name": "buildFailureEmailSettings",
+          "optional": true,
+          "type": {
+            "fqn": "cdk-pr-builder.BuildFailureEmailProps"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "stable"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/pull-request-builder.ts",
+            "line": 29
           },
           "name": "lambdaRole",
           "optional": true,
@@ -996,5 +1148,5 @@
     }
   },
   "version": "0.1.0",
-  "fingerprint": "qVeQ0SSJuBxYKjwfw372Yyvz6Ch4TDk8w8u897U01pc="
+  "fingerprint": "cyCT2r8YgPlGLOSljT0BiLvQgHl7eXBaWGhlBFKngeA="
 }

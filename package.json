@@ -1,88 +1,89 @@
 {
-    "author": "Daniel Heffner",
-    "name": "cdk-pr-builder",
-    "repository": {
-        "url": "https://github.com/dheffx/cdk-pull-request-builder.git",
-        "type": "git"
-    },
-    "license": "MIT",
-    "version": "0.1.0",
-    "scripts": {
-        "build": "jsii",
-        "watch": "jsii -w",
-        "package": "jsii-pacmak",
-        "test": "jest",
-        "lint": "tslint -c tslint.yaml -e 'lib/{handlers,layers}/**/*' '{bin,lib,test}/**/*[^.d$].ts'",
-        "cdk": "cdk",
-        "impl:build": "tsc",
-        "fn:clean": "rm -rf lib/handlers",
-        "fn:lint": "tslint -c tslint.yaml 'functions/handlers/**/*'",
-        "fn:prod": "npm install --production --prefix functions",
-        "fn:includeSDK": "rm -rf functions/node_modules && npm run fn:prod && mv functions/node_modules lib/layers/nodejs/node_modules",
-        "fn:build": "npm run fn:clean && tsc -p functions",
-        "fn:build:prod": "npm run fn:build && npm run fn:includeSDK",
-        "cicd:build": "npm --prefix pipeline run build",
-        "cicd:deploy": "cdk -a pipeline deploy",
-        "cicd:lint": "tslint -c tslint.yaml 'pipeline/{bin,lib,test}/**/*[^.d$].ts'",
-        "all:lint": "npm run fn:lint && npm run lint && npm run cicd:lint"
-    },
-    "devDependencies": {
-        "@aws-cdk/assert": "^1.18.0",
-        "@types/jest": "^24.0.22",
-        "@types/node": "10.17.5",
-        "aws-cdk": "^1.18.0",
-        "aws-delivlib": "^4.5.1",
-        "jest": "^24.9.0",
-        "jsii-pacmak": "^0.20.11",
-        "jsii": "^0.20.11",
-        "source-map-support": "^0.5.16",
-        "ts-jest": "^24.1.0",
-        "ts-node": "^8.1.0",
-        "typescript": "~3.7.2"
-    },
-    "dependencies": {
-        "@aws-cdk/aws-codebuild": "^1.18.0",
-        "@aws-cdk/aws-codecommit": "^1.18.0",
-        "@aws-cdk/aws-events-targets": "^1.18.0",
-        "@aws-cdk/aws-iam": "^1.18.0",
-        "@aws-cdk/aws-lambda": "^1.18.0",
-        "@aws-cdk/core": "^1.18.0"
-    },
-    "peerDependencies": {
-        "@aws-cdk/aws-codebuild": "^1.18.0",
-        "@aws-cdk/aws-codecommit": "^1.18.0",
-        "@aws-cdk/core": "^1.18.0",
-        "@aws-cdk/aws-lambda": "^1.18.0",
-        "@aws-cdk/aws-events-targets": "^1.18.0",
-        "@aws-cdk/aws-iam": "^1.18.0"
-    },
-    "main": "lib/pull-request-builder.js",
-    "types": "lib/pull-request-builder.d.ts",
-    "stability": "stable",
-    "jsii": {
-        "outdir": "dist",
-        "versionFormat": "full",
-        "excludeTypescript": [
-            "functions/*",
-            "impl/*",
-            "pipeline/*"
-        ],
-        "targets": {
-            "dotnet": {
-                "namespace": "CdkPullRequestBuilder",
-                "packageId": "CdkPullRequestBuilder"
-            },
-            "python": {
-                "distName": "cdk-prbuilder",
-                "module": "cdk_prbuilder"
-            },
-            "java": {
-                "package": "CdkPullRequestBuilder",
-                "maven": {
-                    "groupId": "CdkPullRequestBuilder",
-                    "artifactId": "CdkPullRequestBuilder"
-                }
-            }
+  "author": "Daniel Heffner",
+  "name": "cdk-pr-builder",
+  "repository": {
+    "url": "https://github.com/dheffx/cdk-pull-request-builder.git",
+    "type": "git"
+  },
+  "license": "MIT",
+  "version": "0.1.0",
+  "scripts": {
+    "build": "jsii",
+    "watch": "jsii -w",
+    "package": "jsii-pacmak",
+    "test": "jest",
+    "lint": "tslint -c tslint.yaml -e 'lib/{handlers,layers}/**/*' '{bin,lib,test}/**/*[^.d$].ts'",
+    "cdk": "cdk",
+    "impl:build": "tsc",
+    "fn:clean": "rm -rf lib/handlers lib/layers/nodejs/*",
+    "fn:lint": "tslint -c tslint.yaml 'functions/handlers/**/*'",
+    "fn:includeSDK": "mv functions/node_modules lib/layers/nodejs/node_modules",
+    "fn:build": "npm run fn:clean && tsc -p functions",
+    "fn:build:prod": "npm run fn:build && npm run fn:includeSDK",
+    "cicd:build": "npm --prefix pipeline run build",
+    "cicd:deploy": "cdk -a pipeline deploy",
+    "cicd:lint": "tslint -c tslint.yaml 'pipeline/{bin,lib,test}/**/*[^.d$].ts'",
+    "all:lint": "npm run fn:lint && npm run lint && npm run cicd:lint"
+  },
+  "devDependencies": {
+    "@aws-cdk/assert": "^1.18.0",
+    "@types/jest": "^24.0.22",
+    "@types/node": "10.17.5",
+    "aws-cdk": "^1.18.0",
+    "aws-delivlib": "^4.5.1",
+    "jest": "^24.9.0",
+    "jsii-pacmak": "^0.20.11",
+    "jsii": "^0.20.11",
+    "source-map-support": "^0.5.16",
+    "ts-jest": "^24.1.0",
+    "ts-node": "^8.1.0",
+    "typescript": "~3.7.2"
+  },
+  "dependencies": {
+    "@aws-cdk/aws-codebuild": "^1.18.0",
+    "@aws-cdk/aws-codecommit": "^1.18.0",
+    "@aws-cdk/aws-events": "^1.18.0",
+    "@aws-cdk/aws-events-targets": "^1.18.0",
+    "@aws-cdk/aws-iam": "^1.18.0",
+    "@aws-cdk/aws-lambda": "^1.18.0",
+    "@aws-cdk/core": "^1.18.0"
+  },
+  "peerDependencies": {
+    "@aws-cdk/aws-codebuild": "^1.18.0",
+    "@aws-cdk/aws-codecommit": "^1.18.0",
+    "@aws-cdk/core": "^1.18.0",
+    "@aws-cdk/aws-lambda": "^1.18.0",
+    "@aws-cdk/aws-events-targets": "^1.18.0",
+    "@aws-cdk/aws-iam": "^1.18.0",
+    "@aws-cdk/aws-events": "^1.18.0"
+  },
+  "main": "lib/pull-request-builder.js",
+  "types": "lib/pull-request-builder.d.ts",
+  "stability": "stable",
+  "jsii": {
+    "outdir": "dist",
+    "versionFormat": "full",
+    "excludeTypescript": [
+      "functions/*",
+      "impl/*",
+      "pipeline/*"
+    ],
+    "targets": {
+      "dotnet": {
+        "namespace": "CdkPullRequestBuilder",
+        "packageId": "CdkPullRequestBuilder"
+      },
+      "python": {
+        "distName": "cdk-prbuilder",
+        "module": "cdk_prbuilder"
+      },
+      "java": {
+        "package": "CdkPullRequestBuilder",
+        "maven": {
+          "groupId": "CdkPullRequestBuilder",
+          "artifactId": "CdkPullRequestBuilder"
         }
+      }
     }
+  }
 }

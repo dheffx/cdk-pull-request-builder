@@ -3,7 +3,7 @@ import CloudWatchLogs = require('aws-sdk/clients/cloudwatchlogs');
 import CodeCommit = require('aws-sdk/clients/codecommit');
 
 import { Context } from 'aws-lambda';
-import { getBuildEnvironment, isFailedBuild } from './common';
+import { getBuildEnvironment, getBuildJobUrl, isFailedBuild } from './common';
 
 const cloudwatchlogs = new CloudWatchLogs();
 const codecommit = new CodeCommit();
@@ -30,25 +30,19 @@ export const handler = async (event: any = {}, context: Context): Promise<any> =
 };
 
 async function createComment(detail, buildenv) {
-  const buildArn = detail['build-id'];
-  const buildId = buildArn.split('/').pop();
   const buildStatus = detail['build-status'];
-  const url = `https://console.aws.amazon.com/codebuild/home?region=${process.env.AWS_REGION}#/builds/${buildId}/view/new`;
+  const url = getBuildJobUrl(detail['build-id']);
   let comment = `# Pull Request Builder\n\n**${buildStatus}**\n\n${url}\n\nSource Commit: ${buildenv.CODECOMMIT_SOURCE_COMMIT_ID}`;
   const logs = detail['additional-information'].logs;
   const artifact = detail['additional-information'].artifact;
   try {
     if (isFailedBuild(buildStatus) && logs) {
-      comment += "\n\nYou must resolve the issue before the branch can be merged.\n\n";
-      try {
+        comment += "\n\nYou must resolve the issue before the branch can be merged.\n\n";
         const rawEvents = await getLogEvents(logs['group-name'], logs['stream-name']);
         const logLines  = rawEvents.events.map(event => event.message).join("");
         comment += "\n```\n" + logLines + "\n```\n";
-      } catch (e) {
-        console.log("Failed to retrieve log events", e);
-        comment += `\nFailed to retrieve log events: ${e.message}`;
-      }
-    } else if (buildStatus === 'SUCCEEDED' && hasS3Artifact(artifact)) {
+    }
+    if (buildStatus !== 'IN_PROGRESS' && hasS3Artifact(artifact)) {
       comment += "\n\n## Results\n\nArtifact: " + getArtifactUrl(artifact);
     }
   } catch (e) {

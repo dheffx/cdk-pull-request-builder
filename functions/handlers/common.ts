@@ -18,3 +18,8 @@ export const isFailedBuild = (buildStatus): boolean  => {
     buildStatus !== 'SUCCEEDED' &&
     buildStatus !== 'STOPPED');
 };
+
+export function getBuildJobUrl(buildArn: string): string {
+    const buildId = buildArn.split('/').pop();
+    return `https://console.aws.amazon.com/codebuild/home?region=${process.env.AWS_REGION}#/builds/${buildId}/view/new`;
+}
