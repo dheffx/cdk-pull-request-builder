@@ -15,7 +15,7 @@
     "lint": "tslint -c tslint.yaml -e 'lib/{handlers,layers}/**/*' '{bin,lib,test}/**/*[^.d$].ts'",
     "cdk": "cdk",
     "impl:build": "tsc",
-    "fn:clean": "rm -rf lib/handlers lib/layers/nodejs/*",
+    "fn:clean": "rm -rf lib/handlers",
     "fn:lint": "tslint -c tslint.yaml 'functions/handlers/**/*'",
     "fn:includeSDK": "mv functions/node_modules lib/layers/nodejs/node_modules",
     "fn:build": "npm run fn:clean && tsc -p functions",
