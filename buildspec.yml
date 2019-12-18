@@ -1,14 +1,17 @@
-version: '0.2',
-  phases:
-    install:
-      commands:
-        - npm install
-        - npm install --prefix functions
-    build:
-      commands:
-        - npm run fn:build:prod
-        - npm run build
-        - npm run package
+---
+version: '0.2'
+
+phases:
+  install:
+    commands:
+      - npm install
+      - npm install --prefix functions
+  build:
+    commands:
+      - npm run fn:build:prod
+      - npm run build
+      - npm run package
 artifacts:
-  files: [ '**/*' ],
+  files:
+    - '**/*'
   base-directory: 'dist'
