@@ -1,0 +1,80 @@
+{
+  "name": "cdk-pull-request-builder",
+  "version": "0.2.0",
+  "author": "Daniel Heffner",
+  "repository": {
+    "url": "https://github.com/dheffx/cdk-pull-request-builder.git",
+    "type": "git"
+  },
+  "license": "MIT",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "all": "npm run lint && npm run build:all && npm run package",
+    "build:all": "npm run build:assets && npm run includeSDK && npm run build",
+    "build:assets": "npm run clean && npm install --prefix functions && tsc -p functions",
+    "build": "jsii",
+    "watch": "jsii -w",
+    "package": "jsii-pacmak",
+    "test": "jest",
+    "lint": "tslint -c tslint.yaml '{bin,functions,lib,pipeline,test}/**/*.ts'",
+    "clean": "rm -rf lib/handlers lib/layers/nodejs/",
+    "includeSDK": "mkdir -p lib/layers/nodejs && mv functions/node_modules lib/layers/nodejs/node_modules",
+    "cicd:deploy": "cdk -a pipeline deploy"
+  },
+  "devDependencies": {
+    "@aws-cdk/assert": "^1.18.0",
+    "@types/jest": "^24.0.22",
+    "@types/node": "10.17.5",
+    "aws-delivlib": "^5.6.0",
+    "jest": "^24.9.0",
+    "jsii": "^0.20.11",
+    "jsii-pacmak": "^0.20.11",
+    "ts-jest": "^24.1.0",
+    "typescript": "~3.7.2"
+  },
+  "peerDependencies": {
+    "@aws-cdk/core": "^1.18.0",
+    "@aws-cdk/aws-codebuild": "^1.18.0",
+    "@aws-cdk/aws-codecommit": "^1.18.0",
+    "@aws-cdk/aws-events": "^1.18.0",
+    "@aws-cdk/aws-events-targets": "^1.18.0",
+    "@aws-cdk/aws-iam": "^1.18.0",
+    "@aws-cdk/aws-lambda": "^1.18.0"
+  },
+  "dependencies": {
+    "@aws-cdk/aws-codebuild": "^1.18.0",
+    "@aws-cdk/aws-codecommit": "^1.18.0",
+    "@aws-cdk/aws-events": "^1.18.0",
+    "@aws-cdk/aws-events-targets": "^1.18.0",
+    "@aws-cdk/aws-iam": "^1.18.0",
+    "@aws-cdk/aws-lambda": "^1.18.0",
+    "@aws-cdk/core": "^1.18.0"
+  },
+  "stability": "stable",
+  "jsii": {
+    "outdir": "dist",
+    "versionFormat": "full",
+    "excludeTypescript": [
+      "functions/*",
+      "pipeline/*"
+    ],
+    "targets": {
+      "dotnet": {
+        "namespace": "CdkPullRequestBuilder",
+        "packageId": "CdkPullRequestBuilder"
+      },
+      "python": {
+        "distName": "cdk-prb",
+        "module": "cdk_prb"
+      },
+      "java": {
+        "package": "CdkPullRequestBuilder",
+        "maven": {
+          "groupId": "CdkPullRequestBuilder",
+          "artifactId": "CdkPullRequestBuilder"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "pull-request-builder-handlers",
+  "version": "0.1.0",
+  "description": "lambda handlers for pull request builder",
+  "author": "Daniel Heffner",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^12.12.17"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.590.0"
+  }
+}
